@@ -1,0 +1,36 @@
+type Event
+  @model
+  @auth(rules: [{ allow: owner }, { allow: public, operations: [read] }])
+  @key(
+    name: "byUser"
+    fields: ["name", "timestamp"]
+    queryField: "eventsByUser"
+  ) {
+  id: ID!
+  name: String!
+  description: String!
+  timestamp: AWSTimestamp
+  feedback: [Feedback] @connection(keyName: "byEvent", fields: ["id"])
+}
+
+type Feedback
+  @model
+  @auth(
+    rules: [
+      { allow: owner } # owner can update, delete, and read
+      { allow: public, operations: [create] } # unauthenticated users can create
+    ]
+  )
+  @key(
+    name: "byEvent"
+    fields: ["eventID", "timestamp"]
+    queryField: "feedbackByEvent"
+  ) {
+  id: ID!
+  rating: Int!
+  content: String!
+  eventID: ID!
+  owner: String!
+  timestamp: AWSTimestamp
+  event: Event @connection(fields: ["eventID"])
+}
