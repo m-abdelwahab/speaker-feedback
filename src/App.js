@@ -1,26 +1,27 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { EventsProvider } from "./context/eventsContext";
-import { UserProvider } from "./context/userContext";
 import { Layout } from "./components/Layout";
-import { Event, Events, About, NotFound, Landing } from "./pages";
+import Event from "./pages/event";
+import Landing from "./pages/landing";
+import About from "./pages/about";
+import Events from "./pages/events";
+import NotFound from "./pages/notFound";
 
 function App() {
   return (
     <Router>
-      <UserProvider>
-        <Layout>
+      <Layout>
+        <Switch>
+          <Route path="/" exact component={Landing} />
           <EventsProvider>
-            <Switch>
-              <Route path="/" exact component={Landing} />
-              <Route path="/events" component={Events} />
-              <Route path="/about" component={About} />
-              <Route path="/event/:id" component={Event} />
-              <Route component={NotFound} />
-            </Switch>
+            <Route path="/events" component={Events} />
+            <Route path="/event/:id" component={Event} />
           </EventsProvider>
-        </Layout>
-      </UserProvider>
+          <Route path="/about" component={About} />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
     </Router>
   );
 }

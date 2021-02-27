@@ -1,10 +1,10 @@
 {
-  "AppSyncApiName": "FeedbackApp",
+  "AppSyncApiName": "SpeakerFeedbackAPI",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
-      "authfeedbackapp1adba6ee",
+      "authspeakerfeedbackdf752260",
       "Outputs.UserPoolId"
     ]
   }

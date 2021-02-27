@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { API } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import Skeleton from "react-loading-skeleton";
 import { getEvent, listFeedbacks } from "../graphql/queries";
-import {
-  DeleteEvent,
-  Feedback,
-  CreateFeedback,
-  ShareEvent,
-} from "../components";
-import useUser from "../hooks/useUser";
+import DeleteEvent from "../components/DeleteEvent";
+import Feedback from "../components/Feedback";
+import CreateFeedback from "../components/DeleteEvent";
+import ShareEvent from "../components/ShareEvent";
 import { useHistory, useParams } from "react-router-dom";
 
 const Event = () => {
   const history = useHistory();
-  const { user } = useUser();
   const { id } = useParams();
   const eventID = id;
 
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    checkUser();
+  }, []);
+  async function checkUser() {
+    const user = await Auth.currentAuthenticatedUser();
+    setUser(user);
+  }
   const [event, setEvent] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
   const [feedbacks, setFeedbacks] = useState([]);
 
   useEffect(() => {

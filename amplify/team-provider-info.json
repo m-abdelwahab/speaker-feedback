@@ -1,19 +1,19 @@
 {
-  "staging": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-feedbackapp-staging-113209-authRole",
-      "UnauthRoleArn": "arn:aws:iam::425713160894:role/amplify-feedbackapp-staging-113209-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::425713160894:role/amplify-feedbackapp-staging-113209-authRole",
+      "AuthRoleName": "amplify-speakerfeedback-dev-214725-authRole",
+      "UnauthRoleArn": "arn:aws:iam::425713160894:role/amplify-speakerfeedback-dev-214725-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::425713160894:role/amplify-speakerfeedback-dev-214725-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-feedbackapp-staging-113209-deployment",
-      "UnauthRoleName": "amplify-feedbackapp-staging-113209-unauthRole",
-      "StackName": "amplify-feedbackapp-staging-113209",
-      "StackId": "arn:aws:cloudformation:us-east-1:425713160894:stack/amplify-feedbackapp-staging-113209/9a3cb920-7501-11eb-a78d-12e26def3eab",
-      "AmplifyAppId": "d3vof5fpzmk7vi"
+      "DeploymentBucketName": "amplify-speakerfeedback-dev-214725-deployment",
+      "UnauthRoleName": "amplify-speakerfeedback-dev-214725-unauthRole",
+      "StackName": "amplify-speakerfeedback-dev-214725",
+      "StackId": "arn:aws:cloudformation:us-east-1:425713160894:stack/amplify-speakerfeedback-dev-214725/9fd9bf40-7934-11eb-80e6-0a818cac4dad",
+      "AmplifyAppId": "d727ft2uri5vh"
     },
     "categories": {
       "auth": {
-        "feedbackapp1adba6ee": {}
+        "speakerfeedbackdf752260": {}
       }
     }
   }

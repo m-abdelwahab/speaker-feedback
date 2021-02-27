@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { CreateEvent, Event } from "../components";
+import Event from "../components/Event";
+import CreateEvent from "../components/CreateEvent";
 import { AmplifyAuthenticator, AmplifySignUp } from "@aws-amplify/ui-react";
 import EventsContext from "../context/eventsContext";
 import Skeleton from "react-loading-skeleton";
@@ -7,7 +8,6 @@ import Skeleton from "react-loading-skeleton";
 const Events = () => {
   const { eventsState, eventsDispatch } = useContext(EventsContext);
   const { events, status } = eventsState;
-  console.log(events);
 
   return (
     <AmplifyAuthenticator>

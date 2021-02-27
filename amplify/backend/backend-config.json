@@ -1,6 +1,6 @@
 {
   "api": {
-    "FeedbackApp": {
+    "SpeakerFeedbackAPI": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -16,7 +16,7 @@
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
-                "userPoolId": "authfeedbackapp1adba6ee"
+                "userPoolId": "authspeakerfeedbackdf752260"
               }
             }
           ]
@@ -25,12 +25,11 @@
     }
   },
   "auth": {
-    "feedbackapp1adba6ee": {
+    "speakerfeedbackdf752260": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
     }
-  },
-  "storage": {}
+  }
 }

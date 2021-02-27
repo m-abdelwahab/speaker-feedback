@@ -1,9 +1,27 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import useUser from "../../hooks/useUser";
+import { Auth } from "aws-amplify";
+import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
+import { useHistory } from "react-router-dom";
 
 const Navbar = () => {
-  const { user, logout } = useUser();
+  const [authState, setAuthState] = React.useState();
+  const [user, setUser] = React.useState();
+  const history = useHistory();
+
+  React.useEffect(() => {
+    return onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setUser(authData);
+    });
+  }, []);
+
+  const logout = () =>
+    Auth.signOut().then((data) => {
+      setUser(null);
+      history.push("/");
+      return data;
+    });
 
   return (
     <header className="flex-shrink-0">
@@ -34,7 +52,8 @@ const Navbar = () => {
             About
           </Link>
         </nav>
-        {user ? (
+
+        {authState === AuthState.SignedIn && user ? (
           <button
             onClick={() => logout()}
             className="inline-flex items-center px-5 py-2 border-0 bg-red-600 text-white focus:outline-none hover:bg-red-700 rounded text-base mt-4 md:mt-0"
