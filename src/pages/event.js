@@ -4,12 +4,11 @@ import Skeleton from "react-loading-skeleton";
 import { getEvent, listFeedbacks } from "../graphql/queries";
 import DeleteEvent from "../components/DeleteEvent";
 import Feedback from "../components/Feedback";
-import CreateFeedback from "../components/DeleteEvent";
+import CreateFeedback from "../components/CreateFeedback";
 import ShareEvent from "../components/ShareEvent";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Event = () => {
-  const history = useHistory();
   const { id } = useParams();
   const eventID = id;
 
@@ -28,7 +27,6 @@ const Event = () => {
         const eventData = await API.graphql({
           query: getEvent,
           variables: { id: eventID },
-          authMode: "API_KEY",
         });
         if (!eventData.data.getEvent) {
           return <h1>404 - Page Not Found!!</h1>;
