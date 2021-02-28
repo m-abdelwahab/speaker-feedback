@@ -40,25 +40,25 @@ const Event = () => {
     };
 
     const fetchFeedbacks = async () => {
-      try {
-        const feedbacksData = await API.graphql({
-          query: listFeedbacks,
-          authMode: "AMAZON_COGNITO_USER_POOLS",
-          variables: {
-            filter: { eventID: { eq: eventID } },
-            sortDirection: "DESC",
-          },
-        });
-        setFeedbacks(feedbacksData.data.listFeedbacks.items);
-      } catch (error) {
-        console.log("Error fetching feedback", error);
+      if (user) {
+        try {
+          const feedbacksData = await API.graphql({
+            query: listFeedbacks,
+            authMode: "AMAZON_COGNITO_USER_POOLS",
+            variables: {
+              filter: { eventID: { eq: eventID } },
+              sortDirection: "DESC",
+            },
+          });
+          setFeedbacks(feedbacksData.data.listFeedbacks.items);
+        } catch (error) {
+          console.log("Error fetching feedback", error);
+        }
       }
     };
     fetchEvent();
     checkUser();
-    if (user) {
-      fetchFeedbacks();
-    }
+    fetchFeedbacks();
   }, []);
 
   return (
