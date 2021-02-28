@@ -6,12 +6,12 @@ import DeleteEvent from "../components/DeleteEvent";
 import Feedback from "../components/Feedback";
 import CreateFeedback from "../components/CreateFeedback";
 import ShareEvent from "../components/ShareEvent";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 const Event = () => {
   const { id } = useParams();
   const eventID = id;
-
+  const history = useHistory();
   const [user, setUser] = useState(null);
   const [event, setEvent] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +29,7 @@ const Event = () => {
           variables: { id: eventID },
         });
         if (!eventData.data.getEvent) {
-          return <h1>404 - Page Not Found!!</h1>;
+          history.push("/not-found");
         }
         setEvent(eventData.data.getEvent);
       } catch (error) {
