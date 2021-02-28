@@ -19,8 +19,12 @@ const Event = () => {
 
   useEffect(() => {
     async function checkUser() {
-      const user = await Auth.currentAuthenticatedUser();
-      setUser(user);
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        setUser(user);
+      } catch (error) {
+        console.log(error);
+      }
     }
     const fetchEvent = async () => {
       try {
@@ -40,25 +44,24 @@ const Event = () => {
     };
 
     const fetchFeedbacks = async () => {
-      if (user) {
-        try {
-          const feedbacksData = await API.graphql({
-            query: listFeedbacks,
-            authMode: "AMAZON_COGNITO_USER_POOLS",
-            variables: {
-              filter: { eventID: { eq: eventID } },
-              sortDirection: "DESC",
-            },
-          });
-          setFeedbacks(feedbacksData.data.listFeedbacks.items);
-          console.log(feedbacks);
-        } catch (error) {
-          console.log("Error fetching feedback", error);
-        }
+      try {
+        const feedbacksData = await API.graphql({
+          query: listFeedbacks,
+          authMode: "AMAZON_COGNITO_USER_POOLS",
+          variables: {
+            filter: { eventID: { eq: eventID } },
+            sortDirection: "DESC",
+          },
+        });
+        setFeedbacks(feedbacksData.data.listFeedbacks.items);
+        console.log(feedbacks);
+      } catch (error) {
+        console.log("Error fetching feedback", error);
       }
     };
     fetchEvent();
-    checkUser().then(() => fetchFeedbacks());
+    checkUser();
+    fetchFeedbacks();
   }, []);
 
   return (
