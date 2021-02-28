@@ -58,8 +58,7 @@ const Event = () => {
       }
     };
     fetchEvent();
-    checkUser();
-    fetchFeedbacks();
+    checkUser().then(() => fetchFeedbacks());
   }, []);
 
   return (
