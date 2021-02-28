@@ -51,6 +51,7 @@ const Event = () => {
             },
           });
           setFeedbacks(feedbacksData.data.listFeedbacks.items);
+          console.log(feedbacks);
         } catch (error) {
           console.log("Error fetching feedback", error);
         }
