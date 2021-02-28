@@ -14,18 +14,15 @@ const Event = () => {
   const eventID = id;
 
   const [user, setUser] = useState(null);
-  useEffect(() => {
-    checkUser();
-  }, []);
-  async function checkUser() {
-    const user = await Auth.currentAuthenticatedUser();
-    setUser(user);
-  }
   const [event, setEvent] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [feedbacks, setFeedbacks] = useState([]);
 
   useEffect(() => {
+    async function checkUser() {
+      const user = await Auth.currentAuthenticatedUser();
+      setUser(user);
+    }
     const fetchEvent = async () => {
       try {
         const eventData = await API.graphql({
@@ -44,24 +41,25 @@ const Event = () => {
     };
 
     const fetchFeedbacks = async () => {
-      if (user) {
-        try {
-          const feedbacksData = await API.graphql({
-            query: listFeedbacks,
-            authMode: "AMAZON_COGNITO_USER_POOLS",
-            variables: {
-              filter: { eventID: { eq: eventID } },
-              sortDirection: "DESC",
-            },
-          });
-          setFeedbacks(feedbacksData.data.listFeedbacks.items);
-        } catch (error) {
-          console.log("Error fetching feedback", error);
-        }
+      try {
+        const feedbacksData = await API.graphql({
+          query: listFeedbacks,
+          authMode: "AMAZON_COGNITO_USER_POOLS",
+          variables: {
+            filter: { eventID: { eq: eventID } },
+            sortDirection: "DESC",
+          },
+        });
+        setFeedbacks(feedbacksData.data.listFeedbacks.items);
+      } catch (error) {
+        console.log("Error fetching feedback", error);
       }
     };
+    checkUser();
     fetchEvent();
-    fetchFeedbacks();
+    if (user) {
+      fetchFeedbacks();
+    }
   }, []);
 
   return (
