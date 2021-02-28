@@ -28,9 +28,10 @@ const Event = () => {
         const eventData = await API.graphql({
           query: getEvent,
           variables: { id: eventID },
+          authMode: "API_KEY",
         });
         if (!eventData.data.getEvent) {
-          history.push("/NotFound");
+          return <h1>404 - Page Not Found!!</h1>;
         }
         setEvent(eventData.data.getEvent);
       } catch (error) {
@@ -55,8 +56,8 @@ const Event = () => {
         console.log("Error fetching feedback", error);
       }
     };
-    checkUser();
     fetchEvent();
+    checkUser();
     if (user) {
       fetchFeedbacks();
     }

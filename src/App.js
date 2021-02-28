@@ -6,7 +6,6 @@ import Event from "./pages/event";
 import Landing from "./pages/landing";
 import About from "./pages/about";
 import Events from "./pages/events";
-import NotFound from "./pages/notFound";
 
 function App() {
   return (
@@ -19,7 +18,6 @@ function App() {
             <Route path="/event/:id" component={Event} />
           </EventsProvider>
           <Route path="/about" component={About} />
-          <Route component={NotFound} />
         </Switch>
       </Layout>
     </Router>
